@@ -1,0 +1,15 @@
+[project]
+name = "ansible-collection-toolchain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ansible-core>=2.19.0,<2.20",
+    "ansible-dev-tools>=26.1.0",
+    "ansible-lint>=26.1.1",
+    "molecule-plugins[podman]>=25.8.12",
+]
