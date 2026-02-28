@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+---
+proton_pass_cli_channel: stable
+proton_pass_cli_version: auto

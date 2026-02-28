@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+---
+proton_pass_cli_base_url: https://proton.me/download/pass-cli/
+proton_pass_cli_binary_name: pass-cli
+proton_pass_cli_manifest_url: "{{ proton_pass_cli_base_url }}versions.json"

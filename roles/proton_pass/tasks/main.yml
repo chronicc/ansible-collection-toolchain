@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+---
+- name: Set manifest url for selected channel
+  set_fact:
+    proton_pass_cli_manifest_url: >-
+      {{ proton_pass_cli_base_url }}versions.{{ proton_pass_cli_channel }}.json
+  when: proton_pass_cli_channel != 'stable'
+
+- name: Fetch Proton Pass CLI manifest
+  ansible.builtin.uri:
+    url: "{{ proton_pass_cli_manifest_url }}"
+  register: _manifest_response
+
+- name: Parse Proton Pass CLI manifest
+  ansible.builtin.debug:
+    var: _manifest_response
