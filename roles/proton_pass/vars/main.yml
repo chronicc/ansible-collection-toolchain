@@ -1,3 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 ---
-# vars file for proton_pass
+proton_pass_architecture: "{{ ansible_architecture }}"
+proton_pass_manifest_url: >-
+  {{
+    proton_pass_manifest_base_url
+    ~ ('versions.' ~ proton_pass_channel ~ '.json' if proton_pass_channel != 'stable' else 'versions.json')
+  }}
+proton_pass_os: linux

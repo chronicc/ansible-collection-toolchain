@@ -1,0 +1,6 @@
+---
+- name: Test Proton Pass role
+  hosts: localhost
+  gather_facts: true
+  roles:
+    - proton_pass

@@ -6,7 +6,7 @@ Manage the installation of Proton Pass.
 Requirements
 ------------
 
-None.
+- Python: jmespath
 
 Role Variables
 --------------

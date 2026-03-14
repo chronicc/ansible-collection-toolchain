@@ -1,2 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 ---
+proton_pass_binary_name: "pass-cli"
+proton_pass_channel: "{{ lookup('env', 'PROTON_PASS_CLI_INSTALL_CHANNEL') | default('stable', true) }}"
+proton_pass_install_dir: "{{ lookup('env', 'PROTON_PASS_CLI_INSTALL_DIR') | default('/usr/local/bin', true) }}"
+proton_pass_manifest_base_url: "https://proton.me/download/pass-cli/"

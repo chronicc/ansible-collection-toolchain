@@ -1,3 +1,47 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 ---
-# tasks file for proton_pass
+- name: Show Proton Pass manifest URL (main)
+  ansible.builtin.debug:
+    msg: "Proton Pass manifest URL: {{ proton_pass_manifest_url }}"
+  when: ansible_verbosity >= 2
+
+- name: Download Proton Pass manifest (main)
+  ansible.builtin.uri:
+    url: "{{ proton_pass_manifest_url }}"
+    return_content: true
+  register: proton_pass_manifest
+
+- name: Set Proton Pass Download URL and Hash (main)
+  ansible.builtin.set_fact:
+    proton_pass_download_url: >-
+      {{
+        proton_pass_manifest.content
+        | from_json
+        | json_query("passCliVersions.urls")
+        | json_query(proton_pass_os)
+        | json_query(proton_pass_architecture)
+        | json_query("url")
+      }}
+    proton_pass_download_hash: >-
+      {{
+        proton_pass_manifest.content
+        | from_json
+        | json_query("passCliVersions.urls")
+        | json_query(proton_pass_os)
+        | json_query(proton_pass_architecture)
+        | json_query("hash")
+      }}
+
+- name: Download Proton Pass binary (main)
+  ansible.builtin.get_url:
+    url: "{{ proton_pass_download_url }}"
+    dest: "/tmp/{{ proton_pass_binary_name }}"
+    mode: "0644"
+    checksum: "sha256:{{ proton_pass_download_hash }}"
+
+- name: Install Proton Pass binary (main)
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/{{ proton_pass_binary_name }}"
+    dest: "{{ proton_pass_install_dir }}/{{ proton_pass_binary_name }}"
+    mode: "0755"
